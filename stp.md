@@ -33,7 +33,10 @@ S2(config)#int vlan 1
 S2(config-if)#ip add 192.168.1.2 255.255.255.0
 S2(config-if)#no shut
 
-
+S2#copy running-config startup-config
+Destination filename [startup-config]? 
+Building configuration...
+Compressed configuration from 1034 bytes to 736 bytes[OK]
 
 
 
