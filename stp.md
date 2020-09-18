@@ -225,7 +225,7 @@ VLAN0001
   Spanning tree enabled protocol ieee
   Root ID    Priority    32769
              Address     aabb.cc00.1000
-             This bridge is the root
+             ==This bridge is the root==
              Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
 
   Bridge ID  Priority    32769  (priority 32768 sys-id-ext 1)
