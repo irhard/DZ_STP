@@ -103,7 +103,7 @@ Ethernet0/2            unassigned      YES unset  up                    up
 Ethernet0/3            unassigned      YES unset  up                    up      
 Vlan1                  192.168.1.2     YES manual up                    up 
 
-
+Шаг 4
 
 S1#ping 192.168.1.2
 Type escape sequence to abort.
@@ -137,6 +137,100 @@ Type escape sequence to abort.
 Sending 5, 100-byte ICMP Echos to 192.168.1.3, timeout is 2 seconds:
 !!!!!
 Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/1 ms
+
+Часть 2
+
+Шаг 1
+
+S1(config)#interface range e0/0-3
+S1(config-if-range)#shut
+
+S2(config)#in range e0/0-3
+S2(config-if-range)#shut
+
+S3(config)#int range e0/0-3
+S3(config-if-range)#shut
+
+Шаг 2
+
+S1(config)#int range e0/0-3                       
+S1(config-if-range)#switchport trunk encapsulation dot1q   
+S1(config-if-range)#switchport trunk allowed vlan 1     
+S1(config-if-range)#
+
+S2#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+S2(config)#int range e0/0-3                       
+S2(config-if-range)#switchport trunk encapsulation dot1q   
+S2(config-if-range)#switchport trunk allowed vlan 1     
+S2(config-if-range)#
+
+S3#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+S3(config)#int range e0/0-3                       
+S3(config-if-range)#switchport trunk encapsulation dot1q   
+S3(config-if-range)#switchport trunk allowed vlan 1     
+S3(config-if-range)#
+
+Шаг 3
+
+S1#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+S1(config)#in
+S1(config)#interface e0/0
+S1(config-if)#no shut
+S1(config-if)#
+*Sep 18 15:29:30.668: %LINK-3-UPDOWN: Interface Ethernet0/0, changed state to up
+*Sep 18 15:29:31.672: %LINEPROTO-5-UPDOWN: Line protocol on Interface Ethernet0/0, changed state to up
+S1(config-if)#int e0/2
+S1(config-if)#no shut
+S1(config-if)#
+*Sep 18 15:29:46.143: %LINK-3-UPDOWN: Interface Ethernet0/2, changed state to up
+*Sep 18 15:29:47.147: %LINEPROTO-5-UPDOWN: Line protocol on Interface Ethernet0/2, changed state to up
+S1(config-if)#
+
+S2(config)#int e0/0
+S2(config-if)#no shut
+S2(config-if)#int 
+*Sep 18 15:30:44.637: %LINK-3-UPDOWN: Interface Ethernet0/0, changed state to up
+*Sep 18 15:30:45.641: %LINEPROTO-5-UPDOWN: Line protocol on Interface Ethernet0/0, changed state to up
+S2(config-if)#int e0/2
+S2(config-if)#no shut
+S2(config-if)#
+*Sep 18 15:30:58.294: %LINK-3-UPDOWN: Interface Ethernet0/2, changed state to up
+*Sep 18 15:30:59.299: %LINEPROTO-5-UPDOWN: Line protocol on Interface Ethernet0/2, changed state to up
+S2(config-if)#
+
+
+S3#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+S3(config)#int e0/0
+S3(config-if)#no shut
+S3(config-if)#int e0/0
+*Sep 18 15:31:29.631: %LINK-3-UPDOWN: Interface Ethernet0/0, changed state to up
+*Sep 18 15:31:30.637: %LINEPROTO-5-UPDOWN: Line protocol on Interface Ethernet0/0, changed state to up
+S3(config-if)#int e0/2
+S3(config-if)#no shut
+S3(config-if)#
+*Sep 18 15:31:39.331: %LINK-3-UPDOWN: Interface Ethernet0/2, changed state to up
+*Sep 18 15:31:40.336: %LINEPROTO-5-UPDOWN: Line protocol on Interface Ethernet0/2, changed state to up
+S3(config-if)#
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
