@@ -86,6 +86,22 @@ Ethernet0/3            unassigned      YES unset  up                    up
 Vlan1                  192.168.1.3     YES manual up                    up  
 
 
+S1#sh ip interface brief 
+Interface              IP-Address      OK? Method Status                Protocol
+Ethernet0/0            unassigned      YES unset  up                    up      
+Ethernet0/1            unassigned      YES unset  up                    up      
+Ethernet0/2            unassigned      YES unset  up                    up      
+Ethernet0/3            unassigned      YES unset  up                    up      
+Vlan1                  192.168.1.1     YES NVRAM  up                    up  
+
+
+S2#sh ip interface brief 
+Interface              IP-Address      OK? Method Status                Protocol
+Ethernet0/0            unassigned      YES unset  up                    up      
+Ethernet0/1            unassigned      YES unset  up                    up      
+Ethernet0/2            unassigned      YES unset  up                    up      
+Ethernet0/3            unassigned      YES unset  up                    up      
+Vlan1                  192.168.1.2     YES manual up                    up 
 
 
 
