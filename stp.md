@@ -313,7 +313,58 @@ Et0/2               Root FWD 100       128.3    P2p
 
 Почему протокол spanning-tree выбрал этот порт в качестве невыделенного (заблокированного) порта?
 
-**Чтобы понять, какой порт лучше использовать, каждый некорневой коммутатор (S2;S3) определяет стоимость маршрута от каждого своего порта до корневого коммутатора (S1). Эта стоимость определяется суммой стоимостей всех линков, которые нужно пройти кадру, чтобы дойти до корневого коммутатора. В нашей топологии стоимость маршрута от порта Et0/0 коммутатора S3 больше чему от порта Et0/2 этого же коммутатора. Поэтому порт Et0/0 выбранв в качестве альтернативного и статус у него - "заблокирован".**
+**Чтобы понять, какой порт лучше использовать, каждый некорневой коммутатор (S2;S3) определяет стоимость маршрута от каждого своего порта до корневого коммутатора (S1). Эта стоимость определяется суммой стоимостей всех линков, которые нужно пройти кадру, чтобы дойти до корневого коммутатора. В нашей топологии стоимость маршрута от порта Et0/0 коммутатора S3 больше чему от порта Et0/2. Поэтому порт Et0/0 выбран в качестве альтернативного и статус у него - "заблокирован".**
+
+***Наблюдение за процессом выбора протоколом STP порта, исходя из стоимости портов***
+
+```
+S2#sh spanning-tree 
+
+VLAN0001
+  Spanning tree enabled protocol ieee
+  Root ID    Priority    32769
+             Address     aabb.cc00.1000
+             Cost        100
+             Port        1 (Ethernet0/0)
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    32769  (priority 32768 sys-id-ext 1)
+             Address     aabb.cc00.2000
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  300 sec
+
+Interface           Role Sts Cost      Prio.Nbr Type
+------------------- ---- --- --------- -------- --------------------------------
+Et0/0               Root FWD 100       128.1    P2p 
+Et0/2               Desg FWD 100       128.3    P2p
+
+S3#sh spanning-tree 
+
+VLAN0001
+  Spanning tree enabled protocol ieee
+  Root ID    Priority    32769
+             Address     aabb.cc00.1000
+             Cost        100
+             Port        3 (Ethernet0/2)
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    32769  (priority 32768 sys-id-ext 1)
+             Address     aabb.cc00.3000
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  300 sec
+
+Interface           Role Sts Cost      Prio.Nbr Type
+------------------- ---- --- --------- -------- --------------------------------
+Et0/0               Altn BLK 100       128.1    P2p 
+Et0/2               Root FWD 100       128.3    P2p 
+
+```
+
+
+
+
+
+
 
 
 
