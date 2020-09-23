@@ -506,12 +506,135 @@ Et0/2               Root FWD 100       128.3    P2p
 S3#
 ````
 
+**Часть 4**
+
+Включите порты F0/1 и F0/3 на всех коммутаторах.
+
+```
+S1#sh int status 
+
+Port      Name               Status       Vlan       Duplex  Speed Type 
+Et0/0                        connected    1          a-full   auto RJ45
+Et0/1                        disabled     1            auto   auto RJ45
+Et0/2                        connected    1          a-full   auto RJ45
+Et0/3                        disabled     1            auto   auto RJ45
+S1#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+S1(config)#int Et0/1
+S1(config-if)#no shut
+S1(config-if)#int 
+*Sep 23 11:40:11.933: %LINK-3-UPDOWN: Interface Ethernet0/1, changed state to up
+*Sep 23 11:40:12.939: %LINEPROTO-5-UPDOWN: Line protocol on Interface Ethernet0/1, changed state to up
+S1(config-if)#int Et0/3
+S1(config-if)#no shut
+S1(config-if)#
+S1#
+*Sep 23 11:40:25.599: %SYS-5-CONFIG_I: Configured from console by console
+*Sep 23 11:40:25.922: %LINK-3-UPDOWN: Interface Ethernet0/3, changed state to up
+*Sep 23 11:40:26.926: %LINEPROTO-5-UPDOWN: Line protocol on Interface Ethernet0/3, changed state to up
+S1#
 
 
 
 
+S2#sh int status
+
+Port      Name               Status       Vlan       Duplex  Speed Type 
+Et0/0                        connected    1          a-full   auto RJ45
+Et0/1                        disabled     1            auto   auto RJ45
+Et0/2                        connected    1          a-full   auto RJ45
+Et0/3                        disabled     1            auto   auto RJ45
+S2#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+S2(config)#int et0/1
+S2(config-if)#no shut
+S2(config-if)#int 
+*Sep 23 11:35:22.960: %LINK-3-UPDOWN: Interface Ethernet0/1, changed state to up
+S2(config-if)#int et
+*Sep 23 11:35:23.966: %LINEPROTO-5-UPDOWN: Line protocol on Interface Ethernet0/1, changed state to up
+S2(config-if)#int et0/3
+S2(config-if)#no shut
+S2(config-if)#
+*Sep 23 11:35:37.023: %LINK-3-UPDOWN: Interface Ethernet0/3, changed state to up
+*Sep 23 11:35:38.024: %LINEPROTO-5-UPDOWN: Line protocol on Interface Ethernet0/3, changed state to up
+S2(config-if)#
 
 
+S3#sh int status
+
+Port      Name               Status       Vlan       Duplex  Speed Type 
+Et0/0                        connected    1          a-full   auto RJ45
+Et0/1                        disabled     1            auto   auto RJ45
+Et0/2                        connected    1          a-full   auto RJ45
+Et0/3                        disabled     1            auto   auto RJ45
+S3#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+S3(config)#int Et0/1
+S3(config-if)#no shut
+S3(config-if)#int 
+*Sep 23 11:36:18.502: %LINK-3-UPDOWN: Interface Ethernet0/1, changed state to up
+*Sep 23 11:36:19.506: %LINEPROTO-5-UPDOWN: Line protocol on Interface Ethernet0/1, changed state to up
+S3(config-if)#int Et0/3
+S3(config-if)#no shut
+S3(config-if)#
+*Sep 23 11:36:32.323: %LINK-3-UPDOWN: Interface Ethernet0/3, changed state to up
+*Sep 23 11:36:33.327: %LINEPROTO-5-UPDOWN: Line protocol on Interface Ethernet0/3, changed state to up
+S3(config-if)#
+S3#
+
+
+
+
+S2#sh spanning-tree 
+
+VLAN0001
+  Spanning tree enabled protocol ieee
+  Root ID    Priority    32769
+             Address     aabb.cc00.1000
+             Cost        100
+             Port        1 (Ethernet0/0)
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    32769  (priority 32768 sys-id-ext 1)
+             Address     aabb.cc00.2000
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  15  sec
+
+Interface           Role Sts Cost      Prio.Nbr Type
+------------------- ---- --- --------- -------- --------------------------------
+Et0/0               Root FWD 100       128.1    P2p 
+Et0/1               Altn BLK 100       128.2    P2p 
+Et0/2               Desg FWD 100       128.3    P2p 
+Et0/3               Desg FWD 100       128.4    P2p 
+
+
+S2#
+
+
+S3#sh spanning-tree 
+
+VLAN0001
+  Spanning tree enabled protocol ieee
+  Root ID    Priority    32769
+             Address     aabb.cc00.1000
+             Cost        100
+             Port        3 (Ethernet0/2)
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    32769  (priority 32768 sys-id-ext 1)
+             Address     aabb.cc00.3000
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  15  sec
+
+Interface           Role Sts Cost      Prio.Nbr Type
+------------------- ---- --- --------- -------- --------------------------------
+Et0/0               Altn BLK 100       128.1    P2p 
+Et0/1               Altn BLK 100       128.2    P2p 
+Et0/2               Root FWD 100       128.3    P2p 
+Et0/3               Altn BLK 100       128.4    P2p 
+
+
+S3#
 
 
 
